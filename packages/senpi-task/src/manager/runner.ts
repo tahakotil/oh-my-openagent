@@ -105,6 +105,7 @@ function toChildSpec(spec: ManagedStartSpec, context: InProcessSessionContext): 
     ...(spec.instructions !== undefined ? { instructions: spec.instructions } : {}),
     ...(spec.toolAllowlist !== undefined ? { toolAllowlist: spec.toolAllowlist } : {}),
     ...(spec.toolDenylist !== undefined ? { toolDenylist: spec.toolDenylist } : {}),
+    ...(spec.includeTaskTools !== undefined ? { includeTaskTools: spec.includeTaskTools } : {}),
     ...(spec.memberScopedToolNames !== undefined ? { memberScopedToolNames: spec.memberScopedToolNames } : {}),
     ...(spec.memberScopedTools !== undefined ? { memberScopedTools: spec.memberScopedTools } : {}),
     ...(spec.kernelTools !== undefined ? { kernelTools: spec.kernelTools } : {}),

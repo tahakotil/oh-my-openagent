@@ -1,3 +1,8 @@
+## 2026-09-30 - Task children keep senpi builtin tools in the default in-process mode (#9274, #6709)
+
+- The task extension bundle now gives in-process children senpi's builtin-only extension surface while continuing to suppress the parent's path-loaded extensions. The parent tool-capture wrapper stops after omo component registration, so builtin factories senpi loads later are not re-injected as raw custom tools. A mock-provider integration test compares the actual in-process and process child tool payloads and requires `web_search`.
+- `plugin/extensions/omo.js` and `omo-task.js` regenerated on linux/amd64 (node 24, bun 1.4.2) for the senpi-task change; the extension freshness checks pass.
+
 ## 2026-09-30 - claude-code: acquire before the auth check, from the provisioned runtime, with progress (#9276)
 
 - `src/components/claude-code/index.ts`: the component now also runs on `input`, which senpi's `prompt()` emits

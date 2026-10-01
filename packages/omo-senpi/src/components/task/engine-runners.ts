@@ -24,15 +24,13 @@ import { log } from "@oh-my-opencode/utils"
 
 import { loadSenpiBarrel } from "../../../../senpi-task/src/lazy/senpi-barrel"
 import { resolveAgentHome } from "../agent-home/resolve-agent-home"
-import { MEMORY_TOOL_NAME } from "../memory/tools"
 import type { TaskRuntimeContext } from "./runtime-context"
 import type { TaskHostRouting } from "./shard-routing"
 
-// Memory tools are bound to the parent session's identity (repo commits + writer lock); question
-// tools need a parent user UI. A task child must never inherit either, so they ride the same
-// ui-only exclusion as render-only tools.
+// Question tools need a parent user UI. Memory stays available to match process children; its
+// invocation context supplies the child session identity while the shared definition preserves the
+// parent's live service/client instances.
 export const TASK_CHILD_UI_ONLY_TOOL_NAMES: readonly string[] = [
-  MEMORY_TOOL_NAME,
   "request_user_input",
   "ask_user_question",
 ]

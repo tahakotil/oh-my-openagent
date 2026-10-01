@@ -101,6 +101,7 @@ export function buildChildSessionOptions(input: BuildChildSessionOptionsInput): 
   const { spec, sessionManager, uiOnlyToolNames } = input
   const mergedCustomTools = mergeChildCustomTools(input.sharedParentTools, spec.memberScopedTools, {
     uiOnlyToolNames,
+    includeTaskTools: spec.includeTaskTools === true,
   })
   const existingToolNames = childStructuralToolNames(mergedCustomTools.map((tool) => tool.name))
   const curated = spec.agentType !== undefined && CURATED_READONLY_AGENT_NAMES.has(spec.agentType)
@@ -121,9 +122,12 @@ export function buildChildSessionOptions(input: BuildChildSessionOptionsInput): 
   return {
     cwd: spec.cwd,
     sessionManager,
-    resourceLoader: createChildResourceLoader(
-      spec.systemPrompt === undefined ? {} : { systemPrompt: spec.systemPrompt },
-    ),
+    resourceLoader: createChildResourceLoader({
+      cwd: spec.cwd,
+      settingsManager,
+      ...(spec.agentDir === undefined ? {} : { agentDir: spec.agentDir }),
+      ...(spec.systemPrompt === undefined ? {} : { systemPrompt: spec.systemPrompt }),
+    }),
     customTools,
     ...(spec.agentDir !== undefined && { agentDir: spec.agentDir }),
     ...(spec.authStorage !== undefined && { authStorage: spec.authStorage }),
