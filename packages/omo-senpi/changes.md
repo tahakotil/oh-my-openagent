@@ -1,3 +1,7 @@
+## 2026-10-01 - Windows task-child parity regression (#9274, #6709)
+
+- The parity regression now reloads the in-process child loader beside the process child's builtin loader policy and pins equal platform-specific builtin names plus `web_search`, avoiding Windows CLI cold starts while the existing surface tests retain shared-parent and session-default coverage.
+
 ## 2026-09-30 - Task children keep senpi builtin tools in the default in-process mode (#9274, #6709)
 
 - The task extension bundle now gives in-process children senpi's builtin-only extension surface while continuing to suppress the parent's path-loaded extensions. The parent tool-capture wrapper stops after omo component registration, so builtin factories senpi loads later are not re-injected as raw custom tools. A mock-provider integration test compares the actual in-process and process child tool payloads and requires `web_search`.
